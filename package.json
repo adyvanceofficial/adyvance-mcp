@@ -1,0 +1,31 @@
+{
+  "name": "adyvance-mcp",
+  "version": "1.0.0",
+  "description": "Connect AI apps to your Adyvance shop through MCP: setup guide and a zero-dependency stdio bridge.",
+  "type": "module",
+  "bin": {
+    "adyvance-mcp": "bin/adyvance-mcp.js"
+  },
+  "files": [
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "adyvance",
+    "ecommerce",
+    "claude",
+    "ai"
+  ],
+  "homepage": "https://github.com/adyvanceofficial/adyvance-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adyvanceofficial/adyvance-mcp.git"
+  },
+  "license": "MIT"
+}
