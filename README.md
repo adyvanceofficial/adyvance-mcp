@@ -11,15 +11,15 @@ start local MCP servers. The MCP server itself runs inside Adyvance, so there is
 ## Before you start
 
 1. Your shop's plan must include **Connect AI tools (MCP)**.
-2. In the Adyvance admin, open **Apps → API & MCP → MCP server**. Copy the **server address**
-   shown there. It ends in `/mcp`.
+2. In the Adyvance admin, open **Apps → Developer → MCP server**. Copy the **server address**
+   shown there (for example `https://mcp.adyvance.com/mcp`).
 
 There are two ways to connect:
 
 | Way | For | What you need |
 | --- | --- | --- |
 | **Sign in with Adyvance** | Claude.ai, Claude Desktop connectors, ChatGPT | The server address. You approve the app in Adyvance. |
-| **API key** | Claude Code, Cursor, VS Code, Claude Desktop config file | The server address and an API key from **Apps → API & MCP → API keys** |
+| **API key** | Claude Code, Cursor, VS Code, Claude Desktop config file | The server address and an API key from **Apps → Developer → API keys** |
 
 ## Sign in with Adyvance
 
@@ -41,7 +41,7 @@ disconnect it at any time.
 
 ## API key
 
-On **Apps → API & MCP → MCP server**, choose **Make an MCP key**. The config snippets on that
+On **Apps → Developer → MCP server**, choose **Make an MCP key**. The config snippets on that
 page fill themselves in with the new key. Copy the key when it is shown, because it is shown only
 once.
 
@@ -55,13 +55,13 @@ You can tailor each key:
 
 You can change all of these later without changing the key.
 
-In the examples below, replace `https://YOUR-ADMIN-ADDRESS/mcp` with your server address and
+In the examples below, use the server address from your admin if it differs, and replace
 `YOUR_API_KEY` with your key.
 
 ### Claude Code
 
 ```sh
-claude mcp add --transport http adyvance https://YOUR-ADMIN-ADDRESS/mcp \
+claude mcp add --transport http adyvance https://mcp.adyvance.com/mcp \
   --header "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -71,7 +71,7 @@ claude mcp add --transport http adyvance https://YOUR-ADMIN-ADDRESS/mcp \
 {
   "mcpServers": {
     "adyvance": {
-      "url": "https://YOUR-ADMIN-ADDRESS/mcp",
+      "url": "https://mcp.adyvance.com/mcp",
       "headers": { "Authorization": "Bearer YOUR_API_KEY" }
     }
   }
@@ -85,7 +85,7 @@ claude mcp add --transport http adyvance https://YOUR-ADMIN-ADDRESS/mcp \
   "servers": {
     "adyvance": {
       "type": "http",
-      "url": "https://YOUR-ADMIN-ADDRESS/mcp",
+      "url": "https://mcp.adyvance.com/mcp",
       "headers": { "Authorization": "Bearer YOUR_API_KEY" }
     }
   }
@@ -101,7 +101,7 @@ claude mcp add --transport http adyvance https://YOUR-ADMIN-ADDRESS/mcp \
       "command": "npx",
       "args": ["-y", "github:adyvanceofficial/adyvance-mcp"],
       "env": {
-        "ADYVANCE_MCP_URL": "https://YOUR-ADMIN-ADDRESS/mcp",
+        "ADYVANCE_MCP_URL": "https://mcp.adyvance.com/mcp",
         "ADYVANCE_API_KEY": "YOUR_API_KEY"
       }
     }
@@ -152,7 +152,7 @@ Amounts from the shop are in paisa (100 paisa = Rs 1). Tools that set prices tak
 and writes the answers to stdout. It has no dependencies.
 
 ```sh
-ADYVANCE_MCP_URL=https://YOUR-ADMIN-ADDRESS/mcp \
+ADYVANCE_MCP_URL=https://mcp.adyvance.com/mcp \
 ADYVANCE_API_KEY=YOUR_API_KEY \
 npx -y github:adyvanceofficial/adyvance-mcp
 ```
@@ -171,7 +171,7 @@ Messages for people go to stderr, so they never mix with MCP traffic.
 | --- | --- |
 | "Adyvance refused the API key" | The key is wrong, revoked, expired, or not allowed from this IP address. Make a new key. |
 | "not included in this shop's plan" | Upgrade the plan to one that includes Connect AI tools (MCP). |
-| "Not allowed: …" | Give the key or app that permission in Apps → API & MCP. |
+| "Not allowed: …" | Give the key or app that permission in Apps → Developer. |
 | "Too many requests" | Wait a minute, or raise the key's own request limit. |
 | A store is "not found" | The key is limited to other stores. |
 

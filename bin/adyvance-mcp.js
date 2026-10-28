@@ -5,7 +5,7 @@
 //
 // No dependencies. Node.js 18 or newer.
 //
-//   ADYVANCE_MCP_URL  the server address shown in Adyvance → Apps → API & MCP → MCP server
+//   ADYVANCE_MCP_URL  the server address shown in Adyvance → Apps → Developer → MCP server
 //   ADYVANCE_API_KEY  an API key made there (ady_live_… or ady_test_…)
 //
 // Everything the bridge prints for people goes to stderr; stdout carries only MCP messages.
@@ -25,8 +25,8 @@ if (args.includes("--help") || args.includes("-h")) {
       "adyvance-mcp: connect a local MCP client to your Adyvance shop.",
       "",
       "Environment:",
-      "  ADYVANCE_MCP_URL   e.g. https://<your admin address>/mcp",
-      "  ADYVANCE_API_KEY   an API key from Apps → API & MCP",
+      "  ADYVANCE_MCP_URL   e.g. https://mcp.adyvance.com/mcp",
+      "  ADYVANCE_API_KEY   an API key from Apps → Developer",
       "",
       "Options:",
       "  --url <address>    instead of ADYVANCE_MCP_URL",
@@ -47,7 +47,7 @@ const key = process.env.ADYVANCE_API_KEY;
 const log = (msg) => process.stderr.write(`[adyvance-mcp] ${msg}\n`);
 
 if (!url || !/^https?:\/\//.test(url)) {
-  log("Set ADYVANCE_MCP_URL to the server address from Adyvance → Apps → API & MCP.");
+  log("Set ADYVANCE_MCP_URL to the server address from Adyvance → Apps → Developer.");
   process.exit(1);
 }
 if (!key || !/^ady_(live|test)_[a-z2-7]{32}$/.test(key)) {
@@ -124,7 +124,7 @@ async function forward(message) {
     if (res.status === 202 || res.status === 204) return;
     if (res.status === 401) {
       log("The API key was refused (wrong, revoked, expired, or not allowed from this IP).");
-      failAll(message, -32001, "Adyvance refused the API key. Make a new key in Apps → API & MCP.");
+      failAll(message, -32001, "Adyvance refused the API key. Make a new key in Apps → Developer.");
       return;
     }
     const text = await res.text();
